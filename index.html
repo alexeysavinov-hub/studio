@@ -31,19 +31,14 @@ img,video{display:block}
 @media (max-width:860px){[data-nav-links]{display:none !important}[data-hero-pad]{padding-top:120px !important}}
 @media (max-width:480px){[data-nav-cta]{padding:10px 14px !important;font-size:12px !important}[data-cta-mail]{display:none !important}[data-stats]{gap:14px 16px !important}}
 @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-@keyframes reveal{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
-@keyframes drift{to{transform:translateY(10%) scale(1.08)}}
-@keyframes navIn{to{background:rgba(11,12,16,.82);border-bottom-color:rgba(255,255,255,.08)}}
-@keyframes tint{to{color:var(--ac,#B8D447)}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(184,212,71,.55)}70%{box-shadow:0 0 0 9px rgba(184,212,71,0)}}
 @keyframes nudgeX{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
 @keyframes nudgeY{0%,100%{transform:rotate(90deg) translateX(0)}50%{transform:rotate(90deg) translateX(4px)}}
-@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 </style>
 </helmet>
 <div ref="{{ rootRef }}" style="min-height:100vh;background:#0B0C10;color:#F1EFE8;font-family:'Golos Text',system-ui,sans-serif;overflow-x:clip">
 
-<header style="position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0);background:rgba(11,12,16,0);backdrop-filter:blur(16px) saturate(1.3);animation:navIn linear both;animation-timeline:scroll();animation-range:0px 180px">
+<header ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0);background:rgba(11,12,16,0);backdrop-filter:blur(16px) saturate(1.3);transition:background .35s,border-color .35s">
   <nav style="max-width:1360px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:16px clamp(20px,4vw,48px)">
     <a href="#top" style="display:flex;align-items:center;gap:12px;font:400 18px/1 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">
       <span style="display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--ac,#B8D447);color:#0B0C10;font:400 16px/1 'Russo One',sans-serif">Н</span>
@@ -61,7 +56,7 @@ img,video{display:block}
 </header>
 
 <section id="top" data-screen-label="Hero" style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:clip;isolation:isolate">
-  <div style="position:absolute;inset:-12% 0;z-index:-2;animation:drift linear both;animation-timeline:scroll();animation-range:0px 100vh">
+  <div ref="{{ heroMediaRef }}" style="position:absolute;inset:-12% 0;z-index:-2;will-change:transform">
     <img src="media/hero.jpg" srcset="media/hero-640.webp 640w, media/hero-960.webp 960w, media/hero-1600.webp 1600w" sizes="100vw" fetchpriority="high" decoding="async" alt="Стилизованный игровой мир — концепт-арт" style="width:100%;height:100%;object-fit:cover;object-position:62% 50%">
     <sc-if value="{{ heroMotion }}" hint-placeholder-val="{{ false }}">
       <video ref="{{ videoA }}" src="media/hero.mp4" muted="muted" playsinline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%"></video>
@@ -101,48 +96,48 @@ img,video{display:block}
 
 <section id="services" data-screen-label="Услуги" style="padding:clamp(80px,10vw,150px) clamp(20px,4vw,48px) clamp(40px,5vw,72px)">
   <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px clamp(40px,6vw,96px);align-items:start">
-    <div style="position:sticky;top:110px;display:flex;flex-direction:column;gap:22px;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 50%">
+    <div data-reveal="0" style="position:sticky;top:110px;display:flex;flex-direction:column;gap:22px;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
       <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">01 — Услуги</div>
       <h2 style="margin:0;font:400 clamp(28px,3.4vw,48px)/1.05 'Russo One',sans-serif;letter-spacing:.005em;color:#F7F5EF">Берём проект на&nbsp;любой стадии</h2>
       <p style="margin:0;max-width:44ch;font:400 17px/1.6 'Golos Text',sans-serif;color:#9BA0AB">От идеи до публикации и&nbsp;дальнейшей поддержки. Собираем команду под&nbsp;задачу: клиент, сервер, арт, геймдизайн, локализация.</p>
     </div>
     <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.12)">
-      <div style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
+      <div data-reveal="0" style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s,opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
         <div style="font:500 13px/1.6 'JetBrains Mono',monospace;color:var(--ac,#B8D447);padding-top:5px">01</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <h3 style="margin:0;font:400 clamp(18px,1.5vw,22px)/1.2 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">Мобильная разработка</h3>
           <p style="margin:0;font:400 16px/1.6 'Golos Text',sans-serif;color:#9BA0AB;max-width:60ch">Игры и приложения для iOS и Android под ключ: механики, клиентская логика, монетизация, публикация в сторах.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
+      <div data-reveal="0" style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s,opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
         <div style="font:500 13px/1.6 'JetBrains Mono',monospace;color:var(--ac,#B8D447);padding-top:5px">02</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <h3 style="margin:0;font:400 clamp(18px,1.5vw,22px)/1.2 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">Веб-разработка</h3>
           <p style="margin:0;font:400 16px/1.6 'Golos Text',sans-serif;color:#9BA0AB;max-width:60ch">Игровые и интерактивные веб-проекты, кроссплатформенные решения, браузерные клиенты.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
+      <div data-reveal="0" style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s,opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
         <div style="font:500 13px/1.6 'JetBrains Mono',monospace;color:var(--ac,#B8D447);padding-top:5px">03</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <h3 style="margin:0;font:400 clamp(18px,1.5vw,22px)/1.2 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">Серверная разработка</h3>
           <p style="margin:0;font:400 16px/1.6 'Golos Text',sans-serif;color:#9BA0AB;max-width:60ch">Сетевые сервисы и игровая инфраструктура, интеграция платёжных и аналитических систем.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
+      <div data-reveal="0" style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s,opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
         <div style="font:500 13px/1.6 'JetBrains Mono',monospace;color:var(--ac,#B8D447);padding-top:5px">04</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <h3 style="margin:0;font:400 clamp(18px,1.5vw,22px)/1.2 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">3D-арт, 2D-графика и анимация</h3>
           <p style="margin:0;font:400 16px/1.6 'Golos Text',sans-serif;color:#9BA0AB;max-width:60ch">Персонажи, окружение, VFX. Моделирование, риггинг и анимация для мобильных и веб-игр любого жанра.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
+      <div data-reveal="0" style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s,opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
         <div style="font:500 13px/1.6 'JetBrains Mono',monospace;color:var(--ac,#B8D447);padding-top:5px">05</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <h3 style="margin:0;font:400 clamp(18px,1.5vw,22px)/1.2 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">Локализация</h3>
           <p style="margin:0;font:400 16px/1.6 'Golos Text',sans-serif;color:#9BA0AB;max-width:60ch">Перевод и культурная адаптация игр на десятки языков мира.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
+      <div data-reveal="0" style="display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:30px 12px 30px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .45s cubic-bezier(.2,.7,.2,1),background .45s,opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:14px;background:rgba(255,255,255,.025)">
         <div style="font:500 13px/1.6 'JetBrains Mono',monospace;color:var(--ac,#B8D447);padding-top:5px">06</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <h3 style="margin:0;font:400 clamp(18px,1.5vw,22px)/1.2 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">Проектирование игровых механик</h3>
@@ -154,9 +149,9 @@ img,video{display:block}
 </section>
 
 <section data-screen-label="Арт-пайплайн" style="padding:0 clamp(20px,4vw,48px) clamp(80px,10vw,150px)">
-  <div style="max-width:1360px;margin:0 auto;animation:reveal .9s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 45%">
+  <div data-reveal="0" style="max-width:1360px;margin:0 auto;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
     <div style="position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#101218">
-      <img src="media/pipeline.jpg" srcset="media/pipeline-640.webp 640w, media/pipeline-960.webp 960w, media/pipeline-1600.webp 1600w" sizes="(max-width:1400px) calc(100vw - 40px), 1360px" loading="lazy" decoding="async" alt="Пайплайн 3D-персонажа: скульпт, сетка, финальный ассет" style="width:100%;aspect-ratio:1920/1072;object-fit:cover">
+      <img src="media/pipeline.jpg" srcset="media/pipeline-640.webp 640w, media/pipeline-960.webp 960w, media/pipeline-1600.webp 1600w" sizes="(max-width:1400px) calc(100vw - 40px), 1360px" loading="lazy" decoding="async" alt="Пайплайн 3D-персонажа: скульпт, сетка, финальный игровой ассет" style="width:100%;aspect-ratio:1920/1072;object-fit:cover">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,12,16,0) 55%,rgba(11,12,16,.85) 100%)"></div>
       <div style="position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:clamp(16px,3vw,36px)">
         <div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(255,255,255,.25);padding-top:12px">
@@ -181,14 +176,14 @@ img,video{display:block}
 </section>
 
 <section id="genres" data-screen-label="Направления" style="padding:0 0 clamp(80px,10vw,150px);background:linear-gradient(180deg,#0B0C10 0%,#0E1016 50%,#0B0C10 100%)">
-  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px clamp(40px,6vw,96px);align-items:end;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 50%">
+  <div data-reveal="0" style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px clamp(40px,6vw,96px);align-items:end;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
     <div style="display:flex;flex-direction:column;gap:22px">
       <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">02 — Направления</div>
       <h2 style="margin:0;font:400 clamp(28px,3.4vw,48px)/1.05 'Russo One',sans-serif;letter-spacing:.005em;color:#F7F5EF">Жанры и&nbsp;стили, в&nbsp;которых работаем</h2>
     </div>
     <p style="margin:0 0 6px;max-width:48ch;font:400 17px/1.6 'Golos Text',sans-serif;color:#9BA0AB">От казуальных match‑3 до стратегий и&nbsp;шутеров. Подбираем стилистику под аудиторию, платформу и&nbsp;бюджет. Ниже — визуальные концепты направлений.</p>
   </div>
-  <div style="margin-top:48px;animation:reveal .9s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 40%">
+  <div data-reveal="0" style="margin-top:48px;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
     <div style="display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px max(clamp(20px,4vw,48px),calc((100% - 1360px)/2 + clamp(20px,4vw,48px))) 24px;box-sizing:border-box">
       <a href="#contact" style="position:relative;flex:0 0 clamp(250px,26vw,340px);aspect-ratio:4/5;border-radius:22px;overflow:hidden;scroll-snap-align:start;background:#14161d;color:#F1EFE8;transition:transform .6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:translateY(-6px);color:#F1EFE8">
         <img src="media/g-puzzle.jpg" srcset="media/g-puzzle-420.webp 420w, media/g-puzzle-700.webp 700w" sizes="(max-width:960px) 250px, 340px" loading="lazy" decoding="async" alt="Казуальная игра — концепт" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
@@ -245,7 +240,7 @@ img,video{display:block}
 
 <section id="process" data-screen-label="Процесс" style="padding:0 clamp(20px,4vw,48px) clamp(80px,10vw,150px)">
   <div style="max-width:1360px;margin:0 auto">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px clamp(40px,6vw,96px);align-items:end;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 50%">
+    <div data-reveal="0" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px clamp(40px,6vw,96px);align-items:end;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
       <div style="display:flex;flex-direction:column;gap:22px">
         <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">03 — Процесс</div>
         <h2 style="margin:0;font:400 clamp(28px,3.4vw,48px)/1.05 'Russo One',sans-serif;letter-spacing:.005em;color:#F7F5EF">Как мы работаем</h2>
@@ -253,39 +248,39 @@ img,video{display:block}
       <p style="margin:0 0 6px;max-width:48ch;font:400 17px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Короткие итерации, регулярные демо и&nbsp;прозрачные оценки. Клиент, сервер и&nbsp;арт идут параллельно, чтобы не&nbsp;терять время на&nbsp;стыках.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:0 32px;margin-top:56px">
-      <div style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%">
-        <div style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;animation:tint linear both;animation-timeline:view();animation-range:entry 30% entry 90%">01 / Бриф</div>
+      <div data-reveal="0" style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
+        <div data-tint="1" style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;transition:color .6s ease">01 / Бриф</div>
         <h3 style="margin:0;font:400 clamp(19px,1.6vw,22px)/1.25 'Russo One',sans-serif;letter-spacing:.005em">Бриф и&nbsp;оценка</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Изучаем задачу, рынок и&nbsp;ограничения. Формируем концепцию, техническое задание и&nbsp;план работ.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);animation:reveal .8s cubic-bezier(.2,.7,.2,1) .08s both;animation-timeline:view();animation-range:entry 0% entry 60%">
-        <div style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;animation:tint linear both;animation-timeline:view();animation-range:entry 30% entry 90%">02 / Прототип</div>
+      <div data-reveal=".08" style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
+        <div data-tint="1" style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;transition:color .6s ease">02 / Прототип</div>
         <h3 style="margin:0;font:400 clamp(19px,1.6vw,22px)/1.25 'Russo One',sans-serif;letter-spacing:.005em">Рабочий прототип</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Собираем играбельный прототип, утверждаем визуальный стиль и&nbsp;ключевые механики до&nbsp;старта продакшена.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);animation:reveal .8s cubic-bezier(.2,.7,.2,1) .16s both;animation-timeline:view();animation-range:entry 0% entry 60%">
-        <div style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;animation:tint linear both;animation-timeline:view();animation-range:entry 30% entry 90%">03 / Разработка</div>
+      <div data-reveal=".16" style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
+        <div data-tint="1" style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;transition:color .6s ease">03 / Разработка</div>
         <h3 style="margin:0;font:400 clamp(19px,1.6vw,22px)/1.25 'Russo One',sans-serif;letter-spacing:.005em">Продакшен</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Клиент, сервер и&nbsp;арт идут параллельно короткими итерациями с&nbsp;демонстрацией промежуточных результатов.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);animation:reveal .8s cubic-bezier(.2,.7,.2,1) .24s both;animation-timeline:view();animation-range:entry 0% entry 60%">
-        <div style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;animation:tint linear both;animation-timeline:view();animation-range:entry 30% entry 90%">04 / Релиз</div>
+      <div data-reveal=".24" style="display:flex;flex-direction:column;gap:18px;padding:28px 0 36px;border-top:1px solid rgba(255,255,255,.14);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
+        <div data-tint="1" style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#5C616C;transition:color .6s ease">04 / Релиз</div>
         <h3 style="margin:0;font:400 clamp(19px,1.6vw,22px)/1.25 'Russo One',sans-serif;letter-spacing:.005em">Релиз и&nbsp;поддержка</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Тестирование, локализация, публикация на&nbsp;платформах, доработка и&nbsp;развитие проекта после запуска.</p>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px;margin-top:24px">
-      <div style="display:flex;flex-direction:column;gap:14px;padding:30px;border-radius:22px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="border-color:rgba(255,255,255,.22);transform:translateY(-4px)">
+      <div data-reveal="0" style="display:flex;flex-direction:column;gap:14px;padding:30px;border-radius:22px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1),opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="border-color:rgba(255,255,255,.22);transform:translateY(-4px)">
         <div style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">Формат 01</div>
         <h3 style="margin:0;font:400 19px/1.25 'Russo One',sans-serif;letter-spacing:.005em">Проект под&nbsp;ключ</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Фиксированный объём и&nbsp;сроки по&nbsp;техническому заданию — от&nbsp;прототипа до&nbsp;публикации.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:14px;padding:30px;border-radius:22px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1);animation:reveal .8s cubic-bezier(.2,.7,.2,1) .08s both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="border-color:rgba(255,255,255,.22);transform:translateY(-4px)">
+      <div data-reveal=".08" style="display:flex;flex-direction:column;gap:14px;padding:30px;border-radius:22px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1),opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="border-color:rgba(255,255,255,.22);transform:translateY(-4px)">
         <div style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">Формат 02</div>
         <h3 style="margin:0;font:400 19px/1.25 'Russo One',sans-serif;letter-spacing:.005em">Выделенная команда</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Специалисты под&nbsp;ваш продукт на&nbsp;длительный срок: разработчики, художники, геймдизайнеры, QA.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:14px;padding:30px;border-radius:22px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1);animation:reveal .8s cubic-bezier(.2,.7,.2,1) .16s both;animation-timeline:view();animation-range:entry 0% entry 60%" style-hover="border-color:rgba(255,255,255,.22);transform:translateY(-4px)">
+      <div data-reveal=".16" style="display:flex;flex-direction:column;gap:14px;padding:30px;border-radius:22px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1),opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)" style-hover="border-color:rgba(255,255,255,.22);transform:translateY(-4px)">
         <div style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">Формат 03</div>
         <h3 style="margin:0;font:400 19px/1.25 'Russo One',sans-serif;letter-spacing:.005em">Сопровождение</h3>
         <p style="margin:0;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Поддержка и&nbsp;развитие уже выпущенного проекта: контент-обновления, оптимизация, аналитика.</p>
@@ -296,19 +291,19 @@ img,video{display:block}
 
 <section id="stack" data-screen-label="Стек" style="padding:0 clamp(20px,4vw,48px) clamp(80px,10vw,150px)">
   <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px clamp(40px,6vw,96px);align-items:start">
-    <div style="display:flex;flex-direction:column;gap:22px;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 50%">
+    <div data-reveal="0" style="display:flex;flex-direction:column;gap:22px;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
       <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">04 — Технологии</div>
       <h2 style="margin:0;font:400 clamp(28px,3.4vw,48px)/1.05 'Russo One',sans-serif;letter-spacing:.005em;color:#F7F5EF">Стек</h2>
       <p style="margin:0;max-width:40ch;font:400 17px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Инструменты, с&nbsp;которыми работаем каждый день. Подбираем технологии под&nbsp;задачу, а&nbsp;не&nbsp;наоборот.</p>
     </div>
     <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.12)">
-      <div style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%">
+      <div data-reveal="0" style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="font:500 12px/2.6 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#9BA0AB">Движки</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">Unity</span>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%">
+      <div data-reveal="0" style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="font:500 12px/2.6 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#9BA0AB">Клиент</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">C#</span>
@@ -316,7 +311,7 @@ img,video{display:block}
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">MessagePack</span>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%">
+      <div data-reveal="0" style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="font:500 12px/2.6 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#9BA0AB">Сервер</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">.NET</span>
@@ -327,7 +322,7 @@ img,video{display:block}
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">Docker</span>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%">
+      <div data-reveal="0" style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="font:500 12px/2.6 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#9BA0AB">3D-арт</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">Blender</span>
@@ -336,7 +331,7 @@ img,video{display:block}
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">Substance 3D</span>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 60%">
+      <div data-reveal="0" style="display:grid;grid-template-columns:minmax(120px,160px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="font:500 12px/2.6 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#9BA0AB">2D и дизайн</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font:400 13px/1 'Russo One',sans-serif;transition:border-color .3s" style-hover="border-color:var(--ac,#B8D447)">Spine</span>
@@ -351,7 +346,7 @@ img,video{display:block}
 <sc-if value="{{ showPricing }}" hint-placeholder-val="{{ true }}">
 <section id="pricing" data-screen-label="Стоимость" style="padding:0 clamp(20px,4vw,48px) clamp(80px,10vw,150px)">
   <div style="max-width:1360px;margin:0 auto">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px clamp(40px,6vw,96px);align-items:end;animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 50%">
+    <div data-reveal="0" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px clamp(40px,6vw,96px);align-items:end;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
       <div style="display:flex;flex-direction:column;gap:22px">
         <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,#B8D447)">05 — Стоимость</div>
         <h2 style="margin:0;font:400 clamp(28px,3.4vw,48px)/1.05 'Russo One',sans-serif;letter-spacing:.005em;color:#F7F5EF">Почасовые ставки</h2>
@@ -359,7 +354,7 @@ img,video{display:block}
       <p style="margin:0 0 6px;max-width:48ch;font:400 17px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Итоговая стоимость проекта рассчитывается индивидуально — после изучения технического задания или первичной консультации.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:56px">
-      <div style="display:flex;flex-direction:column;padding:clamp(24px,3vw,40px);border-radius:24px;background:#101218;border:1px solid rgba(255,255,255,.08);animation:reveal .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 55%">
+      <div data-reveal="0" style="display:flex;flex-direction:column;padding:clamp(24px,3vw,40px);border-radius:24px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:12px">
           <h3 style="margin:0;font:400 20px/1.2 'Russo One',sans-serif;letter-spacing:.005em">Разработка</h3>
           <span style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#6F7480">₽ / час</span>
@@ -381,7 +376,7 @@ img,video{display:block}
           <span style="font:400 16px/1.4 'Russo One',sans-serif;letter-spacing:.005em">от 3 500 ₽</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;padding:clamp(24px,3vw,40px);border-radius:24px;background:#101218;border:1px solid rgba(255,255,255,.08);animation:reveal .8s cubic-bezier(.2,.7,.2,1) .1s both;animation-timeline:view();animation-range:entry 0% entry 55%">
+      <div data-reveal=".1" style="display:flex;flex-direction:column;padding:clamp(24px,3vw,40px);border-radius:24px;background:#101218;border:1px solid rgba(255,255,255,.08);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:12px">
           <h3 style="margin:0;font:400 20px/1.2 'Russo One',sans-serif;letter-spacing:.005em">Контент и&nbsp;QA</h3>
           <span style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#6F7480">₽ / час</span>
@@ -406,7 +401,7 @@ img,video{display:block}
 </sc-if>
 
 <section id="contact" data-screen-label="Контакт" style="padding:0 clamp(20px,4vw,48px) clamp(20px,4vw,48px)">
-  <div style="max-width:1360px;margin:0 auto;position:relative;overflow:clip;border-radius:28px;background:var(--ac,#B8D447);color:#0B0C10;padding:clamp(48px,7vw,104px) clamp(28px,5vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:end;animation:reveal .9s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 45%">
+  <div data-reveal="0" style="max-width:1360px;margin:0 auto;position:relative;overflow:clip;border-radius:28px;background:var(--ac,#B8D447);color:#0B0C10;padding:clamp(48px,7vw,104px) clamp(28px,5vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:end;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
     <div style="position:absolute;right:-2%;top:-18%;font:400 clamp(240px,34vw,520px)/1 'Russo One',sans-serif;color:rgba(11,12,16,.07);pointer-events:none;user-select:none">Н</div>
     <div style="position:relative;display:flex;flex-direction:column;gap:24px">
       <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,12,16,.7)">06 — Контакт</div>
@@ -456,13 +451,90 @@ img,video{display:block}
 class Component extends DCLogic {
   rootRef = React.createRef();
   // No background video on phones, with "reduce motion", or Data Saver — the poster image is enough there.
-  allowVideo = typeof window === 'undefined' ? true :
-    !(window.matchMedia('(max-width: 860px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData));
+  state = { allowVideo: true };
+  measureVideo() {
+    if (typeof window === 'undefined' || !window.innerWidth) return; // not laid out yet — keep the default
+    const small = window.matchMedia('(max-width: 860px)').matches;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const save = !!(navigator.connection && navigator.connection.saveData);
+    const allow = !(small || reduce || save);
+    if (allow !== this.state.allowVideo) this.setState({ allowVideo: allow });
+  }
   videoA = React.createRef();
   videoB = React.createRef();
-  componentDidMount() { this.sync(); }
-  componentDidUpdate() { this.sync(); }
-  componentWillUnmount() { this.stopLoop(); }
+  navRef = React.createRef();
+  heroMediaRef = React.createRef();
+  componentDidMount() {
+    this.sync(); this.initMotion(); this.measureVideo();
+    this._onResize = () => this.measureVideo();
+    window.addEventListener('resize', this._onResize);
+    this._mqs = ['(max-width: 860px)', '(prefers-reduced-motion: reduce)'].map(q => window.matchMedia(q));
+    this._mqs.forEach(mq => mq.addEventListener && mq.addEventListener('change', this._onResize));
+    // template content keeps arriving after mount — attach choreography to new nodes as they appear
+    this._mo = new MutationObserver(() => this.observeReveals());
+    if (this.rootRef.current) this._mo.observe(this.rootRef.current, { childList: true, subtree: true });
+    setTimeout(() => { this.observeReveals(); this.measureVideo(); }, 0);
+  }
+  componentDidUpdate() { this.sync(); this.observeReveals(); }
+  componentWillUnmount() {
+    this.stopLoop(); this.teardownMotion();
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+    (this._mqs || []).forEach(mq => mq.removeEventListener && mq.removeEventListener('change', this._onResize));
+    if (this._mo) this._mo.disconnect();
+  }
+  // Scroll-linked motion in JS (reveals, nav darkening, hero parallax). Content is visible by default; JS only adds the choreography.
+  initMotion() {
+    const root = this.rootRef.current; if (!root || typeof window === 'undefined') return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const onScroll = () => {
+      this._raf2 = 0;
+      const y = window.scrollY || 0, nav = this.navRef.current, media = this.heroMediaRef.current;
+      if (nav) { const t = Math.min(1, y / 160); nav.style.background = 'rgba(11,12,16,' + (0.82 * t).toFixed(3) + ')'; nav.style.borderBottomColor = 'rgba(255,255,255,' + (0.08 * t).toFixed(3) + ')'; }
+      if (media) { const p = reduce ? 0 : Math.min(1, y / Math.max(1, window.innerHeight)); media.style.transform = 'translateY(' + (p * 10).toFixed(2) + '%) scale(' + (1 + p * 0.08).toFixed(3) + ')'; }
+    };
+    this._onScroll = () => { if (!this._raf2) this._raf2 = requestAnimationFrame(onScroll); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    onScroll();
+    this._seen = new WeakSet();
+    this._reduce = reduce;
+    const tint = el => { if (el.hasAttribute('data-tint')) el.style.color = 'var(--ac,#B8D447)'; };
+    if (!reduce && 'IntersectionObserver' in window) {
+      this._io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          const el = e.target;
+          if (!e.isIntersecting) {
+            // first report for an off-screen node: park it in the hidden state and keep watching
+            if (el.hasAttribute('data-reveal') && !el.dataset.shown) { el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; }
+            return;
+          }
+          this._io.unobserve(el);
+          el.dataset.shown = '1';
+          if (el.hasAttribute('data-reveal')) {
+            const d = parseFloat(el.getAttribute('data-reveal')) || 0;
+            el.style.transitionDelay = d ? d + 's' : '';
+            el.style.opacity = ''; el.style.transform = '';
+            if (d) setTimeout(() => { el.style.transitionDelay = ''; }, (d + 1) * 1000);
+          }
+          tint(el);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    }
+    this.observeReveals();
+  }
+  observeReveals() {
+    const root = this.rootRef.current; if (!root || !this._seen) return;
+    root.querySelectorAll('[data-reveal],[data-tint]').forEach(el => {
+      if (this._seen.has(el)) return;
+      this._seen.add(el);
+      if (this._io) this._io.observe(el);
+      else if (el.hasAttribute('data-tint')) el.style.color = 'var(--ac,#B8D447)';
+    });
+  }
+  teardownMotion() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._raf2) cancelAnimationFrame(this._raf2);
+    if (this._io) this._io.disconnect();
+  }
   sync() {
     const root = this.rootRef.current;
     if (root) root.style.setProperty('--ac', this.props.accentColor ?? '#B8D447');
@@ -498,19 +570,25 @@ class Component extends DCLogic {
         requestAnimationFrame(fade);
       }
       [a, b].forEach(v => { if (!v.muted) v.muted = true; if (v.playbackRate !== RATE) v.playbackRate = RATE; });
+      // browsers pause off-screen / background muted videos — resume the visible player once we're back
+      if (!fading && active.paused && !document.hidden && active.readyState >= 2) play(active);
       loop.raf = requestAnimationFrame(tick);
     };
+    loop.onVisible = () => { if (!document.hidden) { if (!fading && active.paused) play(active); if (fading && idle.paused) play(idle); } };
+    document.addEventListener('visibilitychange', loop.onVisible);
     loop.raf = requestAnimationFrame(tick);
     this._loop = loop;
   }
-  stopLoop() { if (this._loop) { this._loop.stopped = true; cancelAnimationFrame(this._loop.raf); this._loop = null; } }
+  stopLoop() { if (this._loop) { this._loop.stopped = true; cancelAnimationFrame(this._loop.raf); document.removeEventListener('visibilitychange', this._loop.onVisible); this._loop = null; } }
   renderVals() {
     const p = this.props;
     return {
       rootRef: this.rootRef,
+      navRef: this.navRef,
+      heroMediaRef: this.heroMediaRef,
       videoA: this.videoA,
       videoB: this.videoB,
-      heroMotion: (p.heroMotion ?? true) && this.allowVideo,
+      heroMotion: (p.heroMotion ?? true) && this.state.allowVideo,
       showPricing: p.showPricing ?? true,
     };
   }
