@@ -36,6 +36,8 @@ img,video{display:block}
 [data-hero-shade]{background:linear-gradient(180deg,rgba(11,12,16,.5) 0%,rgba(11,12,16,.1) 28%,rgba(11,12,16,.55) 58%,#0B0C10 100%) !important}
 [data-sticky]{position:static !important}
 [data-hero-cta1]{display:none !important}
+[data-cta]{padding-right:28px !important;padding-bottom:150px !important}
+[data-peek]{width:150px !important;right:-4% !important;bottom:-6% !important}
 [data-hero-cta2]{background:var(--ac,#B8D447) !important;color:#0B0C10 !important;border-color:transparent !important;padding:17px 28px !important}
 [data-stack]{grid-template-columns:1fr !important}
 [data-stack]>div{grid-column:auto !important;min-height:0 !important}
@@ -59,7 +61,7 @@ img,video{display:block}
 <header ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0);background:rgba(11,12,16,0);backdrop-filter:blur(16px) saturate(1.3);transition:background .35s,border-color .35s">
   <nav style="max-width:1360px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:16px clamp(20px,4vw,48px)">
     <a href="#top" style="display:flex;align-items:center;gap:12px;font:400 18px/1 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">
-      <span aria-hidden="true" style="position:relative;width:38px;height:38px;flex:none;display:block;animation:wobble 2.8s ease-in-out infinite;transform-origin:50% 90%"><img src="media/logo/slime-160.png" alt="" style="width:100%;height:100%;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))"></span>
+      <span aria-hidden="true" onClick="{{ onLogoClick }}" style="position:relative;width:38px;height:38px;flex:none;display:block;cursor:pointer;animation:wobble 2.8s ease-in-out infinite;transform-origin:50% 90%"><img src="media/logo/slime-160.png" alt="" style="width:100%;height:100%;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))"></span>
       <span>Студия<span style="color:var(--ac,#B8D447)">-Н</span></span>
     </a>
     <div data-nav-links="1" style="display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);flex-wrap:wrap;font:400 13px/1 'Russo One',sans-serif">
@@ -402,8 +404,8 @@ img,video{display:block}
 </sc-if>
 
 <section id="contact" data-screen-label="Контакт" style="padding:0 clamp(20px,4vw,48px) clamp(20px,4vw,48px)">
-  <div data-reveal="0" style="max-width:1360px;margin:0 auto;position:relative;overflow:clip;border-radius:28px;background:var(--ac,#B8D447);color:#0B0C10;padding:clamp(48px,7vw,104px) clamp(28px,5vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:end;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
-    <img src="media/logo/slime-512.png" alt="" aria-hidden="true" style="position:absolute;right:-2%;top:50%;transform:translateY(-50%) rotate(-6deg);width:clamp(240px,32vw,480px);height:auto;pointer-events:none;user-select:none;opacity:.16;filter:grayscale(1) brightness(.25)">
+  <div data-cta="1" data-reveal="0" style="max-width:1360px;margin:0 auto;position:relative;overflow:clip;border-radius:28px;background:var(--ac,#B8D447);color:#0B0C10;padding:clamp(48px,7vw,104px) clamp(170px,24vw,360px) clamp(48px,7vw,104px) clamp(28px,5vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:end;transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)">
+    <span data-peek="1" ref="{{ peekRef }}" aria-hidden="true" style="position:absolute;right:-6%;bottom:-10%;width:clamp(200px,24vw,340px);aspect-ratio:1;transform:translate(4%,3%) rotate(-12deg);transform-origin:80% 100%;pointer-events:none;user-select:none;filter:drop-shadow(-12px 10px 22px rgba(11,12,16,.28))"><img src="media/logo/slime-512.png" alt="" style="width:100%;height:100%;display:block"><span style="position:absolute;left:32.9%;top:47%;width:15.4%;height:13.8%;transform:translate(-50%,-50%);border-radius:50% 50% 46% 46% / 54% 54% 46% 46%;background:#F3F2E6;display:grid;place-items:center;overflow:hidden"><span data-pupil="1" style="width:54%;height:60%;border-radius:50%;background:#2B3317;position:relative;transform:translate(-14%,-8%);transition:transform .14s ease-out"><span style="position:absolute;left:20%;top:14%;width:34%;height:30%;border-radius:50%;background:#fff"></span></span></span><span style="position:absolute;left:66.7%;top:47%;width:15.4%;height:13.8%;transform:translate(-50%,-50%);border-radius:50% 50% 46% 46% / 54% 54% 46% 46%;background:#F3F2E6;display:grid;place-items:center;overflow:hidden"><span data-pupil="1" style="width:54%;height:60%;border-radius:50%;background:#2B3317;position:relative;transform:translate(-14%,-8%);transition:transform .14s ease-out"><span style="position:absolute;left:20%;top:14%;width:34%;height:30%;border-radius:50%;background:#fff"></span></span></span></span>
     <div style="position:relative;display:flex;flex-direction:column;gap:24px">
       <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,12,16,.7)">06 — Контакт</div>
       <h2 style="margin:0;font:400 clamp(30px,4.4vw,64px)/1.02 'Russo One',sans-serif;letter-spacing:.005em;max-width:14ch">Есть идея для&nbsp;проекта? Воплотим вместе.</h2>
@@ -419,7 +421,7 @@ img,video{display:block}
   <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px clamp(40px,6vw,96px);align-items:start">
     <div style="display:flex;flex-direction:column;gap:28px">
       <a href="#top" style="display:flex;align-items:center;gap:12px;font:400 18px/1 'Russo One',sans-serif;letter-spacing:.005em;color:#F1EFE8">
-        <span aria-hidden="true" style="position:relative;width:38px;height:38px;flex:none;display:block;animation:wobble 2.8s ease-in-out infinite;transform-origin:50% 90%"><img src="media/logo/slime-160.png" alt="" style="width:100%;height:100%;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))"></span>
+        <span aria-hidden="true" onClick="{{ onLogoClick }}" style="position:relative;width:38px;height:38px;flex:none;display:block;cursor:pointer;animation:wobble 2.8s ease-in-out infinite;transform-origin:50% 90%"><img src="media/logo/slime-160.png" alt="" style="width:100%;height:100%;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))"></span>
         <span>Студия<span style="color:var(--ac,#B8D447)">-Н</span></span>
       </a>
       <p style="margin:0;max-width:36ch;font:400 15px/1.6 'Golos Text',sans-serif;color:#9BA0AB">Разработка мобильных игр и&nbsp;программного обеспечения на&nbsp;заказ. Санкт-Петербург.</p>
@@ -465,6 +467,7 @@ class Component extends DCLogic {
   videoB = React.createRef();
   navRef = React.createRef();
   heroMediaRef = React.createRef();
+  peekRef = React.createRef();
   componentDidMount() {
     this.sync(); this.initMotion(); this.measureVideo();
     this._onResize = () => this.measureVideo();
@@ -496,6 +499,22 @@ class Component extends DCLogic {
     this._onScroll = () => { if (!this._raf2) this._raf2 = requestAnimationFrame(onScroll); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
     onScroll();
+    // the peeking mascot's pupils follow the pointer
+    this._onPointer = (ev) => {
+      if (this._rafEyes) return;
+      this._rafEyes = requestAnimationFrame(() => {
+        this._rafEyes = 0;
+        const peek = this.peekRef.current; if (!peek) return;
+        peek.querySelectorAll('[data-pupil]').forEach(p => {
+          const er = p.parentElement.getBoundingClientRect();
+          const cx = er.left + er.width / 2, cy = er.top + er.height / 2;
+          const dx = ev.clientX - cx, dy = ev.clientY - cy, dist = Math.hypot(dx, dy) || 1;
+          const k = Math.min(1, dist / 240), max = er.width * 0.2;
+          p.style.transform = 'translate(' + (dx / dist * max * k).toFixed(1) + 'px,' + (dy / dist * max * k).toFixed(1) + 'px)';
+        });
+      });
+    };
+    window.addEventListener('pointermove', this._onPointer, { passive: true });
     this._seen = new WeakSet();
     this._reduce = reduce;
     const tint = el => { if (el.hasAttribute('data-tint')) el.style.color = 'var(--ac,#B8D447)'; };
@@ -533,6 +552,7 @@ class Component extends DCLogic {
   }
   teardownMotion() {
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._onPointer) window.removeEventListener('pointermove', this._onPointer);
     if (this._raf2) cancelAnimationFrame(this._raf2);
     if (this._io) this._io.disconnect();
   }
@@ -581,11 +601,41 @@ class Component extends DCLogic {
     this._loop = loop;
   }
   stopLoop() { if (this._loop) { this._loop.stopped = true; cancelAnimationFrame(this._loop.raf); document.removeEventListener('visibilitychange', this._loop.onVisible); this._loop = null; } }
+  // Easter egg: 10 taps on the mascot — it bursts into slime drops and bounces back.
+  onLogoClick = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    const wrap = e.currentTarget, img = wrap.querySelector('img');
+    if (!img || !img.animate || this._popping) return;
+    this._clicks = (this._clicks || 0) + 1;
+    if (this._clicks < 10) {
+      img.animate([{ transform: 'scale(1,1)' }, { transform: 'scale(1.25,.78)' }, { transform: 'scale(.92,1.08)' }, { transform: 'scale(1,1)' }], { duration: 360, easing: 'ease-out' });
+      let b = wrap.querySelector('[data-badge]');
+      if (!b) { b = document.createElement('span'); b.setAttribute('data-badge', '1'); b.style.cssText = 'position:absolute;left:100%;top:-6px;margin-left:4px;padding:3px 6px;border-radius:999px;background:#B8D447;color:#0B0C10;font:500 10px/1 "JetBrains Mono",monospace;white-space:nowrap;pointer-events:none;z-index:3'; wrap.appendChild(b); }
+      b.textContent = this._clicks + '/10';
+      b.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 1, offset: .6 }, { opacity: 0, transform: 'translateY(-6px)' }], { duration: 900, fill: 'forwards' });
+      return;
+    }
+    this._clicks = 0; this._popping = true;
+    const n = 12;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement('span'), a = (i / n) * Math.PI * 2 + (Math.random() - .5) * .5, dist = 26 + Math.random() * 36, s = 4 + Math.random() * 8;
+      d.style.cssText = 'position:absolute;left:50%;top:50%;width:' + s + 'px;height:' + s + 'px;margin:-' + s / 2 + 'px 0 0 -' + s / 2 + 'px;border-radius:50%;background:#B8D447;pointer-events:none;z-index:2';
+      wrap.appendChild(d);
+      d.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: 'translate(' + Math.cos(a) * dist + 'px,' + (Math.sin(a) * dist + 20) + 'px) scale(.2)', opacity: 0 }], { duration: 650 + Math.random() * 300, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' }).onfinish = () => d.remove();
+    }
+    img.animate([{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(1.4,.65)', opacity: 1, offset: .4 }, { transform: 'scale(0)', opacity: 0 }], { duration: 420, easing: 'ease-in', fill: 'forwards' }).onfinish = () => {
+      setTimeout(() => {
+        img.animate([{ transform: 'scale(0)', opacity: 0 }, { transform: 'scale(1.18,.84)', opacity: 1, offset: .7 }, { transform: 'scale(1)', opacity: 1 }], { duration: 700, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'forwards' }).onfinish = () => { this._popping = false; };
+      }, 380);
+    };
+  }
   renderVals() {
     const p = this.props;
     return {
+      onLogoClick: this.onLogoClick,
       rootRef: this.rootRef,
       navRef: this.navRef,
+      peekRef: this.peekRef,
       heroMediaRef: this.heroMediaRef,
       videoA: this.videoA,
       videoB: this.videoB,
